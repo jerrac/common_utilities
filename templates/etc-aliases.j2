@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+
+{% for alias in common_utilities_etc_aliases_config|sort %}
+{% if common_utilities_etc_aliases_config[alias].enabled %}
+{{ common_utilities_etc_aliases_config[alias].alias }}
+{% endif %}
+{% endfor %}

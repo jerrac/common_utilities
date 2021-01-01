@@ -1,0 +1,6 @@
+- name: "run newaliases"
+  shell: newaliases
+  register: common_utilities_etc_aliases_ran_newaliases
+  tags:
+    - common_utilities
+    - common_utilities_etc_aliases

@@ -1,0 +1,13 @@
+- name: "Configure docker volumes"
+  when: item.value.enabled
+  docker_volume:
+    state: "{{ item.value.state }}"
+    volume_name: "{{ item.value.volume_name  }}"
+    driver: "{{ item.value.driver | default('local') }}"
+    driver_options: "{{ item.value.driver_options | default({}) }}"
+    recreate: "{{ item.value.recreate | default('never') }}"
+  loop: "{{ raygun_utilities_docker_volumes_items | default({}) | dict2items }}"
+  tags:
+    - raygun_utilities
+    - raygun_utilities_docker
+    - raygun_utilities_docker_volumes

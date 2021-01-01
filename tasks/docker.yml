@@ -1,0 +1,41 @@
+- name: "Register if docker is installed at /bin/docker"
+  stat:
+    path: "/bin/docker"
+  register: inprocess_bin_docker
+  tags:
+    - "raygun_utilities"
+    - "raygun_utilities_docker"
+    - "common_utilities_docker_enable"
+    - "common_utilities_docker_networking"
+    - "common_utilities_docker_volumes"
+- name: "Register if docker is installed at /usr/bin/docker"
+  stat:
+    path: "/usr/bin/docker"
+  register: inprocess_usr_bin_docker
+  tags:
+    - "raygun_utilities"
+    - "raygun_utilities_docker"
+    - "common_utilities_docker_enable"
+    - "common_utilities_docker_networking"
+    - "common_utilities_docker_volumes"
+
+- name: "Include docker_enable tasks"
+  when: common_utilities_docker_enable_enabled
+  include_tasks: docker_enable.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_docker_enable"
+
+- name: "Include docker networking related tasks"
+  when: common_utilities_docker_networking_enabled
+  include_tasks: docker_networking.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_docker_networking"
+
+- name: "Include docker volumes related tasks"
+  when: common_utilities_docker_volumes_enabled
+  include_tasks: docker_volumes.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_docker_volumes"

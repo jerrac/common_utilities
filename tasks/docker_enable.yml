@@ -1,0 +1,11 @@
+
+- name: "Enable Docker"
+  when: inprocess_bin_docker.stat.exists or inprocess_usr_bin_docker.stat.exists
+  service:
+    state: "started"
+    enabled: "yes"
+    name: "docker"
+  tags:
+    - "common_utilities"
+    - "common_utilities_docker"
+    - "common_utilities_docker_enable"

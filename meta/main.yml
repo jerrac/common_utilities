@@ -1,0 +1,13 @@
+---
+galaxy_info:
+  author: David Reagan
+  description: A simple role to contain tasks that don't require their own role.
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+  categories:
+    - system
+dependencies: {}

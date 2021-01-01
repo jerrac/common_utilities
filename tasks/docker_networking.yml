@@ -1,0 +1,14 @@
+- name: "Configure docker networks"
+  when: item.value.enabled
+  docker_network:
+    state: "{{ item.value.state }}"
+    network_name: "{{ item.value.network_name  }}"
+    driver: "{{ item.value.driver | default('bridge') }}"
+    driver_options: "{{ item.value.driver_options | default({}) }}"
+    ipam_config: "{{ item.value.ipam_config | default([]) }}"
+  loop: "{{ raygun_utilities_docker_networks_items | default({}) | dict2items }}"
+  tags:
+    - raygun_utilities
+    - raygun_utilities_docker
+    - raygun_utilities_docker_networking
+

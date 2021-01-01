@@ -1,0 +1,10 @@
+---
+- name: set etc/aliases template
+  when: common_utilities_etc_aliases_config is defined
+  template:
+    src: etc-aliases.j2
+    dest: /etc/aliases
+  notify: run newaliases
+  tags:
+    - common_utilities
+    - common_utilities_etc_aliases
