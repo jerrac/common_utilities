@@ -8,6 +8,7 @@
     dest: "{{ item.value.dest }}"
   loop: "{{ common_utilities_file_upload_directories | default({}) | dict2items }}"
   tags:
+    - "common_utilities"
     - "common_utilities_file_upload"
 
 - name: "Delete directories"
@@ -19,6 +20,7 @@
     dest: "{{ item.value.dest }}"
   loop: "{{ common_utilities_file_upload_directories | default({}) | dict2items }}"
   tags:
+    - "common_utilities"
     - "common_utilities_file_upload"
 
 - name: "Upload a file"
@@ -34,6 +36,7 @@
   loop: "{{ common_utilities_file_upload_items | default({}) | dict2items }}"
   register: inprocess_upload_file
   tags:
+    - "common_utilities"
     - "common_utilities_file_upload"
 
 - name: "Delete a file"
@@ -46,6 +49,7 @@
   loop: "{{ common_utilities_file_upload_items | default({}) | dict2items }}"
   register: inprocess_delete_file
   tags:
+    - "common_utilities"
     - "common_utilities_file_upload"
 
 - name: "Run update-ca-certificates when uploaded file is a CA cert"
@@ -55,6 +59,7 @@
   shell: update-ca-certificates
   loop: "{{ inprocess_upload_file.results | default([]) }}"
   tags:
+    - "common_utilities"
     - "common_utilities_file_upload"
 
 - name: "Run update-ca-certificates when deleted file is a CA cert"
@@ -64,5 +69,6 @@
   shell: update-ca-certificates
   loop: "{{ inprocess_delete_file.results | default([]) }}"
   tags:
+    - "common_utilities"
     - "common_utilities_file_upload"
 

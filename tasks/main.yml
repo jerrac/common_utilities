@@ -2,4 +2,10 @@
   when: common_utilities_enabled
   include_tasks: tasks.yml
   tags:
-    - common_utilities
+    - "common_utilities"
+    - "common_utilities_etc_aliases"
+    - "common_utilities_file_upload"
+    - "common_utilities_docker"
+    - "common_utilities_docker_enable"
+    - "common_utilities_docker_networking"
+    - "common_utilities_docker_volumes"

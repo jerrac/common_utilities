@@ -6,5 +6,5 @@
     dest: /etc/aliases
   notify: run newaliases
   tags:
-    - common_utilities
-    - common_utilities_etc_aliases
+    - "common_utilities"
+    - "common_utilities_etc_aliases"

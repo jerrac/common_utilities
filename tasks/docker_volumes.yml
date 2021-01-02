@@ -6,8 +6,8 @@
     driver: "{{ item.value.driver | default('local') }}"
     driver_options: "{{ item.value.driver_options | default({}) }}"
     recreate: "{{ item.value.recreate | default('never') }}"
-  loop: "{{ raygun_utilities_docker_volumes_items | default({}) | dict2items }}"
+  loop: "{{ common_utilities_docker_volumes_items | default({}) | dict2items }}"
   tags:
-    - raygun_utilities
-    - raygun_utilities_docker
-    - raygun_utilities_docker_volumes
+    - "common_utilities"
+    - "common_utilities_docker"
+    - "common_utilities_docker_volumes"

@@ -3,8 +3,8 @@
     path: "/bin/docker"
   register: inprocess_bin_docker
   tags:
-    - "raygun_utilities"
-    - "raygun_utilities_docker"
+    - "common_utilities"
+    - "common_utilities_docker"
     - "common_utilities_docker_enable"
     - "common_utilities_docker_networking"
     - "common_utilities_docker_volumes"
@@ -13,8 +13,8 @@
     path: "/usr/bin/docker"
   register: inprocess_usr_bin_docker
   tags:
-    - "raygun_utilities"
-    - "raygun_utilities_docker"
+    - "common_utilities"
+    - "common_utilities_docker"
     - "common_utilities_docker_enable"
     - "common_utilities_docker_networking"
     - "common_utilities_docker_volumes"
@@ -24,6 +24,7 @@
   include_tasks: docker_enable.yml
   tags:
     - "common_utilities"
+    - "common_utilities_docker"
     - "common_utilities_docker_enable"
 
 - name: "Include docker networking related tasks"
@@ -31,6 +32,7 @@
   include_tasks: docker_networking.yml
   tags:
     - "common_utilities"
+    - "common_utilities_docker"
     - "common_utilities_docker_networking"
 
 - name: "Include docker volumes related tasks"
@@ -38,4 +40,5 @@
   include_tasks: docker_volumes.yml
   tags:
     - "common_utilities"
+    - "common_utilities_docker"
     - "common_utilities_docker_volumes"
