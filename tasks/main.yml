@@ -9,3 +9,4 @@
     - "common_utilities_docker_enable"
     - "common_utilities_docker_networking"
     - "common_utilities_docker_volumes"
+    - "common_utilities_append_groups_to_user"

@@ -20,7 +20,9 @@
     - "common_utilities_docker_volumes"
 
 - name: "Include docker_enable tasks"
-  when: common_utilities_docker_enable_enabled
+  when:
+    - common_utilities_docker_enable_enabled
+    - ( inprocess_bin_docker.stat.exists or inprocess_usr_bin_docker.stat.exists )
   include_tasks: docker_enable.yml
   tags:
     - "common_utilities"
@@ -28,7 +30,9 @@
     - "common_utilities_docker_enable"
 
 - name: "Include docker networking related tasks"
-  when: common_utilities_docker_networking_enabled
+  when:
+    - common_utilities_docker_networking_enabled
+    - ( inprocess_bin_docker.stat.exists or inprocess_usr_bin_docker.stat.exists )
   include_tasks: docker_networking.yml
   tags:
     - "common_utilities"
@@ -36,7 +40,9 @@
     - "common_utilities_docker_networking"
 
 - name: "Include docker volumes related tasks"
-  when: common_utilities_docker_volumes_enabled
+  when:
+    - common_utilities_docker_volumes_enabled
+    - ( inprocess_bin_docker.stat.exists or inprocess_usr_bin_docker.stat.exists )
   include_tasks: docker_volumes.yml
   tags:
     - "common_utilities"
