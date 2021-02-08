@@ -30,3 +30,10 @@
   tags:
     - "common_utilities"
     - "common_utilities_append_groups_to_user"
+
+- name: "Include Acme to HAProxy tasks."
+  when: common_utilities_acme_to_haproxy_enabled
+  include_tasks: acme_to_haproxy.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_acme_to_haproxy"
