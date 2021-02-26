@@ -1,0 +1,6 @@
+- name: "Set server timezone."
+  timezone:
+    name: "{{ common_utilities_timezone_name }}"
+  tags:
+    - "common_utilities"
+    - "common_utilities_timezone"

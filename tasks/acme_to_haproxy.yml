@@ -36,7 +36,7 @@
     - "common_utilities_acme_to_haproxy"
 
 - name: "Concatenate cert's into chain for haproxy - Let's Encrypt"
-  when: in_process_certbot_results_letsencrypt.changed
+  when: item.changed
   shell: "cat /etc/letsencrypt/live/{{ item.stdout_lines | join('') | regex_search('\\b([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\\b') }}/fullchain.pem /etc/letsencrypt/live/{{ item.stdout_lines | join('') | regex_search('\\b([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\\b') }}/privkey.pem > /etc/haproxy/certs/{{ item.stdout_lines | join('') | regex_search('\\b([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\\b') }}.pem"
   loop: "{{ in_process_certbot_results_letsencrypt.results }}"
   register: in_process_haproxy_concatenate_letsencrypt

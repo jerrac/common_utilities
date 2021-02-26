@@ -37,3 +37,10 @@
   tags:
     - "common_utilities"
     - "common_utilities_acme_to_haproxy"
+
+- name: "Include timezone tasks."
+  when: common_utilities_timezone_enabled
+  include_tasks: timezone.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_timezone"
