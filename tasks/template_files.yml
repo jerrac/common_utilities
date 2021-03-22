@@ -1,0 +1,27 @@
+- name: "Template a non_filtered file."
+  when: item.value.enabled
+  template:
+    src: non_filtered.j2
+    dest: "{{ item.value.target_path }}"
+    owner: "{{ item.value.owner }}"
+    group: "{{ item.value.group }}"
+    mode: "{{ item.value.mode }}"
+  loop: "{{ common_utilities_template_files_non_filtered|dict2items }}"
+  tags:
+    - "common_utilities"
+    - "common_utilities_template_files"
+    - "common_utilities_template_files_non_filtered"
+
+- name: "Template a yaml filtered file."
+  when: item.value.enabled
+  template:
+    src: yaml_filtered.j2
+    dest: "{{ item.value.target_path }}"
+    owner: "{{ item.value.owner }}"
+    group: "{{ item.value.group }}"
+    mode: "{{ item.value.mode }}"
+  loop: "{{ common_utilities_template_files_yaml_filtered|dict2items }}"
+  tags:
+    - "common_utilities"
+    - "common_utilities_template_files"
+    - "common_utilities_template_files_yaml_filtered"

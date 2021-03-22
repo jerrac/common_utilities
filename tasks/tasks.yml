@@ -37,3 +37,12 @@
   tags:
     - "common_utilities"
     - "common_utilities_acme_to_haproxy"
+
+- name: "Include template_files tasks."
+  when: common_utilities_template_files_enabled
+  include_tasks: template_files.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_template_files"
+    - "common_utilities_template_files_yaml_filtered"
+    - "common_utilities_template_files_non_filtered"
