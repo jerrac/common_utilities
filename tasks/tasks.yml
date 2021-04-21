@@ -46,3 +46,17 @@
     - "common_utilities_template_files"
     - "common_utilities_template_files_yaml_filtered"
     - "common_utilities_template_files_non_filtered"
+
+- name: "Include git clone tasks."
+  when: common_utilities_git_clone_enabled
+  include_tasks: git_clone.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_git_clone"
+
+- name: "Include template etc/hosts tasks."
+  when: common_utilities_template_etc_hosts_enabled
+  include_tasks: template_etc_hosts.yml.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_etc_hosts"

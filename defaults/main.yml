@@ -11,3 +11,5 @@ common_utilities_acme_to_haproxy_items: {}
 common_utilities_template_files_enabled: False
 common_utilities_template_files_non_filtered: {}
 common_utilities_template_files_yaml_filtered: {}
+common_utilities_git_clone_enabled: False
+common_utilities_template_etc_hosts_enabled: False

@@ -1,0 +1,32 @@
+- name: "Register if git is installed at /bin/git"
+  stat:
+    path: "/bin/git"
+  register: inprocess_bin_git
+  tags:
+    - "common_utilities"
+    - "common_utilities_git_clone"
+
+- name: "Register if git is installed at /usr/bin/git"
+  stat:
+    path: "/usr/bin/git"
+  register: inprocess_usr_bin_git
+  tags:
+    - "common_utilities"
+    - "common_utilities_git_clone"
+
+- name: "Clone a git repo."
+  when:
+    - ( inprocess_bin_git.stat.exists or inprocess_usr_bin_git.stat.exists )
+    - item.value.enabled
+  git:
+    repo: "{{ item.value.repo }}"
+    dest: "{{ item.value.dest }}"
+    recursive: "{{ item.value.recursive | default('yes') }}"
+    accept_hostkey: "{{ item.value.accept_hostkey | default('no') }}"
+    remote: "{{ item.value.remote | default('origin') }}"
+    version: "{{ item.value.version | default('HEAD') }}"
+  loop: "{{ common_utilities_git_clone_normal_items }} | dict2items }}"
+  tags:
+    - "common_utilities"
+    - "common_utilities_git_clone"
+
