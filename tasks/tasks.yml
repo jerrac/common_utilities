@@ -56,7 +56,7 @@
 
 - name: "Include template etc/hosts tasks."
   when: common_utilities_template_etc_hosts_enabled
-  include_tasks: template_etc_hosts.yml.yml
+  include_tasks: template_etc_hosts.yml
   tags:
     - "common_utilities"
     - "common_utilities_etc_hosts"

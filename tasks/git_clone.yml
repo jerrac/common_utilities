@@ -25,7 +25,7 @@
     accept_hostkey: "{{ item.value.accept_hostkey | default('no') }}"
     remote: "{{ item.value.remote | default('origin') }}"
     version: "{{ item.value.version | default('HEAD') }}"
-  loop: "{{ common_utilities_git_clone_normal_items }} | dict2items }}"
+  loop: "{{ common_utilities_git_clone_normal_items | default({}) | dict2items }}"
   tags:
     - "common_utilities"
     - "common_utilities_git_clone"

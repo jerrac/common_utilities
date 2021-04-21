@@ -1,6 +1,7 @@
 # {{ ansible_managed }}
-{% for key,item in common_utilities_etc_hosts_items| default({}) | dictsort(true,'key') %}
+{% for key,item in common_utilities_etc_hosts_items | default({}) | dictsort(true,'key') %}
 {% if common_utilities_etc_hosts_items[key].enabled %}
 {{ common_utilities_etc_hosts_items[key].ip }} {% for name in common_utilities_etc_hosts_items[key].hostnames|sort %}{{ name }} {% endfor %}
+
 {% endif %}
 {% endfor %}
