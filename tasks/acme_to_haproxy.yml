@@ -1,3 +1,14 @@
+- name: "Upload letsencrypt_to_haproxy.sh"
+  copy:
+    src: "files/letsencrypt_to_haproxy.sh"
+    dest: "/usr/local/bin/letsencrypt_to_haproxy.sh"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+  tags:
+    - "common_utilities"
+    - "common_utilities_acme_to_haproxy"
+
 - name: "Run certbot - Custom server and CA Bundle"
   when: item.value.custom_ca_bundle is defined
   shell: >
@@ -9,15 +20,6 @@
       -d {{ item.value.domains | sort | join(' -d ') }}
   loop: "{{ common_utilities_acme_to_haproxy_items | dict2items }}"
   register: in_process_certbot_results_custom_ca
-  tags:
-    - "common_utilities"
-    - "common_utilities_acme_to_haproxy"
-
-- name: "Concatenate cert's into chain for haproxy - Custom server and CA Bundle"
-  when: in_process_certbot_results_custom_ca.changed
-  shell: "cat /etc/letsencrypt/live/{{ item.stdout_lines | join('') | regex_search('\\b([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\\b') }}/privkey.pem /etc/letsencrypt/live/{{ item.stdout_lines | join('') | regex_search('\\b([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\\b') }}/fullchain.pem > /etc/haproxy/certs/{{ item.stdout_lines | join('') | regex_search('\\b([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\\b') }}.pem"
-  loop: "{{ in_process_certbot_results_custom_ca.results }}"
-  register: in_process_haproxy_concatenate_custom_ca
   tags:
     - "common_utilities"
     - "common_utilities_acme_to_haproxy"
@@ -36,16 +38,12 @@
     - "common_utilities_acme_to_haproxy"
 
 - name: "Concatenate cert's into chain for haproxy - Let's Encrypt"
-  when: in_process_certbot_results_letsencrypt.changed
-  shell: "cat /etc/letsencrypt/live/{{ item.stdout_lines | join('') | regex_search('\\b([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\\b') }}/fullchain.pem /etc/letsencrypt/live/{{ item.stdout_lines | join('') | regex_search('\\b([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\\b') }}/privkey.pem > /etc/haproxy/certs/{{ item.stdout_lines | join('') | regex_search('\\b([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\\b') }}.pem"
-  loop: "{{ in_process_certbot_results_letsencrypt.results }}"
-  register: in_process_haproxy_concatenate_letsencrypt
+  shell: /usr/local/bin/letsencrypt_to_haproxy.sh
   tags:
-    - "common_utilities"
-    - "common_utilities_acme_to_haproxy"
+  - "common_utilities"
+  - "common_utilities_acme_to_haproxy"
 
 - name: "Reload haproxy"
-  when: in_process_haproxy_concatenate_custom_ca.changed or in_process_haproxy_concatenate_letsencrypt.changed
   service:
     name: "haproxy"
     state: "reloaded"
