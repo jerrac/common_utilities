@@ -16,3 +16,4 @@
     - "common_utilities_template_files_non_filtered"
     - "common_utilities_git_clone"
     - "common_utilities_etc_hosts"
+    - "common_utilities_set_file_state"
