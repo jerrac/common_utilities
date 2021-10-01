@@ -1,12 +1,12 @@
 - name: "Configure docker networks"
-  when: item.value.enabled
+  when:  item.1.enabled
   docker_network:
-    state: "{{ item.value.state }}"
-    network_name: "{{ item.value.network_name  }}"
-    driver: "{{ item.value.driver | default('bridge') }}"
-    driver_options: "{{ item.value.driver_options | default({}) }}"
-    ipam_config: "{{ item.value.ipam_config | default([]) }}"
-  loop: "{{ common_utilities_docker_networks_items | default({}) | dict2items }}"
+    state: "{{ item.1.state }}"
+    network_name: "{{ item.1.network_name  }}"
+    driver: "{{ item.1.driver | default('bridge') }}"
+    driver_options: "{{ item.1.driver_options | default({}) }}"
+    ipam_config: "{{ item.1.ipam_config | default([]) }}"
+  loop: "{{ common_utilities_docker_networks_items | default({}) | dictsort }}"
   tags:
     - "common_utilities"
     - "common_utilities_docker"

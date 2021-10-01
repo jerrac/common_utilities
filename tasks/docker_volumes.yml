@@ -1,12 +1,12 @@
 - name: "Configure docker volumes"
-  when: item.value.enabled
+  when:  item.1.enabled
   docker_volume:
-    state: "{{ item.value.state }}"
-    volume_name: "{{ item.value.volume_name  }}"
-    driver: "{{ item.value.driver | default('local') }}"
-    driver_options: "{{ item.value.driver_options | default({}) }}"
-    recreate: "{{ item.value.recreate | default('never') }}"
-  loop: "{{ common_utilities_docker_volumes_items | default({}) | dict2items }}"
+    state: "{{ item.1.state }}"
+    volume_name: "{{ item.1.volume_name  }}"
+    driver: "{{ item.1.driver | default('local') }}"
+    driver_options: "{{ item.1.driver_options | default({}) }}"
+    recreate: "{{ item.1.recreate | default('never') }}"
+  loop: "{{ common_utilities_docker_volumes_items | default({}) | dictsort }}"
   tags:
     - "common_utilities"
     - "common_utilities_docker"

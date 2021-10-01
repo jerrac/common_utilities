@@ -67,3 +67,21 @@
   tags:
     - "common_utilities"
     - "common_utilities_set_file_state"
+
+- name: "Include disable core dump tasks."
+  when:
+    - common_utilities_disable_core_dumps_enabled
+    - not common_utilities_enable_core_dumps_enabled
+  include_tasks: disable_core_dumps.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_disable_core_dumps"
+
+- name: "Include enable core dump tasks."
+  when:
+    - common_utilities_enable_core_dumps_enabled
+    - not common_utilities_disable_core_dumps_enabled
+  include_tasks: enable_core_dumps.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_enable_core_dumps"

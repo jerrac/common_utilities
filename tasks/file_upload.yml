@@ -1,39 +1,39 @@
 ---
 - name: "Create directories"
   when:
-    - item.value.enabled
-    - item.value.delete == False
+    -  item.1.enabled
+    -  item.1.delete == False
   file:
     state: "directory"
-    dest: "{{ item.value.dest }}"
-  loop: "{{ common_utilities_file_upload_directories | default({}) | dict2items }}"
+    dest: "{{ item.1.dest }}"
+  loop: "{{ common_utilities_file_upload_directories | default({}) | dictsort }}"
   tags:
     - "common_utilities"
     - "common_utilities_file_upload"
 
 - name: "Delete directories"
   when:
-    - item.value.enabled
-    - item.value.delete == True
+    -  item.1.enabled
+    -  item.1.delete == True
   file:
     state: "absent"
-    dest: "{{ item.value.dest }}"
-  loop: "{{ common_utilities_file_upload_directories | default({}) | dict2items }}"
+    dest: "{{ item.1.dest }}"
+  loop: "{{ common_utilities_file_upload_directories | default({}) | dictsort }}"
   tags:
     - "common_utilities"
     - "common_utilities_file_upload"
 
 - name: "Upload a file"
   when:
-    - item.value.enabled
-    - item.value.delete == False
+    -  item.1.enabled
+    -  item.1.delete == False
   copy:
-    src: "{{ item.value.src }}"
-    dest: "{{ item.value.dest }}"
-    mode: "{{ item.value.mode }}"
-    owner: "{{ item.value.owner }}"
-    group: "{{ item.value.group }}"
-  loop: "{{ common_utilities_file_upload_items | default({}) | dict2items }}"
+    src: "{{ item.1.src }}"
+    dest: "{{ item.1.dest }}"
+    mode: "{{ item.1.mode }}"
+    owner: "{{ item.1.owner }}"
+    group: "{{ item.1.group }}"
+  loop: "{{ common_utilities_file_upload_items | default({}) | dictsort }}"
   register: inprocess_upload_file
   tags:
     - "common_utilities"
@@ -41,12 +41,12 @@
 
 - name: "Delete a file"
   when:
-    - item.value.enabled
-    - item.value.delete == True
+    -  item.1.enabled
+    -  item.1.delete == True
   file:
     state: "absent"
-    dest: "{{ item.value.dest }}"
-  loop: "{{ common_utilities_file_upload_items | default({}) | dict2items }}"
+    dest: "{{ item.1.dest }}"
+  loop: "{{ common_utilities_file_upload_items | default({}) | dictsort }}"
   register: inprocess_delete_file
   tags:
     - "common_utilities"
@@ -55,7 +55,7 @@
 - name: "Run update-ca-certificates when uploaded file is a CA cert"
   when:
     - inprocess_upload_file.changed
-    - item.item.value.is_ca_cert
+    - item. item.1.is_ca_cert
   shell: update-ca-certificates
   loop: "{{ inprocess_upload_file.results | default([]) }}"
   tags:
@@ -65,7 +65,7 @@
 - name: "Run update-ca-certificates when deleted file is a CA cert"
   when:
     - inprocess_delete_file.changed
-    - item.item.value.is_ca_cert
+    - item. item.1.is_ca_cert
   shell: update-ca-certificates
   loop: "{{ inprocess_delete_file.results | default([]) }}"
   tags:
