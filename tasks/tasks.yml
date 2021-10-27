@@ -68,13 +68,6 @@
     - "common_utilities"
     - "common_utilities_etc_hosts"
 
-- name: "Include set file state tasks."
-  when: common_utilities_set_file_state_enabled
-  include_tasks: set_file_state.yml
-  tags:
-    - "common_utilities"
-    - "common_utilities_set_file_state"
-
 - name: "Include disable core dump tasks."
   when:
     - common_utilities_disable_core_dumps_enabled
