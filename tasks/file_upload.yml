@@ -55,7 +55,8 @@
 - name: "Run update-ca-certificates when uploaded file is a CA cert"
   when:
     - inprocess_upload_file.changed
-    - item. item.1.is_ca_cert
+    - item.item.1.is_ca_cert
+    - ansible_os_family == "Debian"
   shell: update-ca-certificates
   loop: "{{ inprocess_upload_file.results | default([]) }}"
   tags:
@@ -65,7 +66,8 @@
 - name: "Run update-ca-certificates when deleted file is a CA cert"
   when:
     - inprocess_delete_file.changed
-    - item. item.1.is_ca_cert
+    - itme.item.1.is_ca_cert
+    - ansible_os_family == "Debian"
   shell: update-ca-certificates
   loop: "{{ inprocess_delete_file.results | default([]) }}"
   tags:
