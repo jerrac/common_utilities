@@ -5,12 +5,12 @@
     - "common_utilities"
     - "common_utilities_etc_aliases"
 
-- name: "Include file upload tasks."
-  when: common_utilities_file_upload_enabled
-  include_tasks: file_upload.yml
-  tags:
-    - "common_utilities"
-    - "common_utilities_file_upload"
+#- name: "Include file upload tasks."
+#  when: common_utilities_file_upload_enabled
+#  include_tasks: file_upload.yml
+#  tags:
+#    - "common_utilities"
+#    - "common_utilities_file_upload"
 
 - name: "Include docker tasks."
   when: common_utilities_docker_enable_enabled
@@ -37,6 +37,17 @@
   tags:
     - "common_utilities"
     - "common_utilities_set_file_state"
+
+- name: "Include set file contents tasks."
+  when: common_utilities_set_file_contents_enabled
+  include_tasks: set_file_contents.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_set_file_contents"
+    - "common_utilities_set_file_contents_upload"
+    - "common_utilities_set_file_contents_template"
+    - "common_utilities_set_file_contents_template_plain"
+    - "common_utilities_set_file_contents_template_yaml"
 
 - name: "Include Acme to HAProxy tasks."
   when: common_utilities_acme_to_haproxy_enabled
@@ -85,3 +96,10 @@
   tags:
     - "common_utilities"
     - "common_utilities_enable_core_dumps"
+
+- name: "Include cert tasks"
+  when: common_utilities_certs_enabled
+  include_tasks: certs.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_certs"
