@@ -21,7 +21,7 @@
     owner: "{{ item.1.owner }}"
     group: "{{ item.1.group }}"
     mode: "{{ item.1.mode }}"
-  loop: "{{ common_utilities_set_file_contents_template_plain_files | dictsort }}"
+  loop: "{{ common_utilities_set_file_contents_template_plain_files | default({}) | dictsort }}"
   tags:
     - "common_utilities"
     - "common_utilities_set_file_contents"
@@ -36,7 +36,7 @@
     owner: "{{ item.1.owner }}"
     group: "{{ item.1.group }}"
     mode: "{{ item.1.mode }}"
-  loop: "{{ common_utilities_set_file_contents_template_yaml_files | dictsort }}"
+  loop: "{{ common_utilities_set_file_contents_template_yaml_files | default({}) | dictsort }}"
   tags:
     - "common_utilities"
     - "common_utilities_set_file_contents"
