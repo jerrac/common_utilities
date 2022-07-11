@@ -8,7 +8,7 @@
       )
   file:
     state: "{{ item.value.state }}"
-    path: "{{ item.value.path }}"
+    dest: "{{ item.value.dest }}"
     owner: "{{ item.value.owner }}"
     group: "{{ item.value.group }}"
     mode: "{{ item.value.mode }}"
