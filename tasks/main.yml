@@ -24,3 +24,4 @@
     - "common_utilities_set_file_contents_template_plain"
     - "common_utilities_set_file_contents_template_yaml"
     - "common_utilities_certs"
+    - "common_utilities_apticron"
