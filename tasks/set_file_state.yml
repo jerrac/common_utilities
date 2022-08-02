@@ -1,6 +1,6 @@
 - name: "Set general file or directory state."
   when:
-    - item.value.enabled
+    - item.value.enabled or item.value.enabled == "True"
     - (
         item.value.state == "file" or
         item.value.state == "directory" or
@@ -19,7 +19,7 @@
 
 - name: "Set general file or directory state."
   when:
-    - item.value.enabled
+    - item.value.enabled or item.value.enabled == "True"
     - (
       item.value.state == "link" or
       item.value.state == "hard"
@@ -38,7 +38,7 @@
 
 - name: "Delete general file or directory."
   when:
-    - item.value.enabled
+    - item.value.enabled or item.value.enabled == "True"
     - item.value.state == "absent"
   file:
     state: "{{ item.value.state }}"
