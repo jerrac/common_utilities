@@ -5,13 +5,6 @@
     - "common_utilities"
     - "common_utilities_etc_aliases"
 
-#- name: "Include file upload tasks."
-#  when: common_utilities_file_upload_enabled
-#  include_tasks: file_upload.yml
-#  tags:
-#    - "common_utilities"
-#    - "common_utilities_file_upload"
-
 - name: "Include docker tasks."
   when: common_utilities_docker_enable_enabled
         or common_utilities_docker_networking_enabled
@@ -24,39 +17,12 @@
     - "common_utilities_docker_networking"
     - "common_utilities_docker_volumes"
 
-- name: "Include set file state tasks."
-  when: common_utilities_set_file_state_enabled
-  include_tasks: set_file_state.yml
-  tags:
-    - "common_utilities"
-    - "common_utilities_set_file_state"
-
-- name: "Include set file contents tasks."
-  when: common_utilities_set_file_contents_enabled
-  include_tasks: set_file_contents.yml
-  tags:
-    - "common_utilities"
-    - "common_utilities_set_file_contents"
-    - "common_utilities_set_file_contents_upload"
-    - "common_utilities_set_file_contents_template"
-    - "common_utilities_set_file_contents_template_plain"
-    - "common_utilities_set_file_contents_template_yaml"
-
 - name: "Include Acme to HAProxy tasks."
   when: common_utilities_acme_to_haproxy_enabled
   include_tasks: acme_to_haproxy.yml
   tags:
     - "common_utilities"
     - "common_utilities_acme_to_haproxy"
-
-- name: "Include template_files tasks."
-  when: common_utilities_template_files_enabled
-  include_tasks: template_files.yml
-  tags:
-    - "common_utilities"
-    - "common_utilities_template_files"
-    - "common_utilities_template_files_yaml_filtered"
-    - "common_utilities_template_files_non_filtered"
 
 - name: "Include git clone tasks."
   when: common_utilities_git_clone_enabled
@@ -89,13 +55,6 @@
   tags:
     - "common_utilities"
     - "common_utilities_enable_core_dumps"
-
-- name: "Include cert tasks"
-  when: common_utilities_certs_enabled
-  include_tasks: certs.yml
-  tags:
-    - "common_utilities"
-    - "common_utilities_certs"
 
 - name: "Include apticron tasks"
   when:
