@@ -4,8 +4,6 @@ common_utilities_docker_volumes_enabled: False
 common_utilities_docker_enable_enabled: False
 common_utilities_etc_aliases_enabled: False
 common_utilities_file_upload_enabled: False
-common_utilities_append_groups_to_user_enabled: False
-common_utilities_append_groups_to_user_items: {}
 common_utilities_acme_to_haproxy_enabled: False
 common_utilities_acme_to_haproxy_items: {}
 common_utilities_template_files_enabled: False

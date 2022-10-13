@@ -24,13 +24,6 @@
     - "common_utilities_docker_networking"
     - "common_utilities_docker_volumes"
 
-- name: "Include Append Groups to User tasks."
-  when: common_utilities_append_groups_to_user_enabled
-  include_tasks: append_groups_to_user.yml
-  tags:
-    - "common_utilities"
-    - "common_utilities_append_groups_to_user"
-
 - name: "Include set file state tasks."
   when: common_utilities_set_file_state_enabled
   include_tasks: set_file_state.yml

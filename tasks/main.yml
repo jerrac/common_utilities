@@ -9,7 +9,6 @@
     - "common_utilities_docker_enable"
     - "common_utilities_docker_networking"
     - "common_utilities_docker_volumes"
-    - "common_utilities_append_groups_to_user"
     - "common_utilities_acme_to_haproxy"
     - "common_utilities_template_files"
     - "common_utilities_template_files_yaml_filtered"
