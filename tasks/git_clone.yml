@@ -64,3 +64,18 @@
   tags:
     - "common_utilities"
     - "common_utilities_git_clone"
+
+- name: "Set any needed $HOME/bin/ links"
+  when:
+    - item.value.enabled or item.value.enabled == "True"
+  file:
+    state: "link"
+    src: "{{ item.value.src }}"
+    dest: "{{ item.value.dest }}"
+    owner: "{{ item.value.owner }}"
+    group: "{{ item.value.group }}"
+    mode: "{{ item.value.mode }}"
+  loop: "{{ common_utilities_git_clone_bin_links | default({}) | dict2items }}"
+  tags:
+    - "common_utilities"
+    - "common_utilities_git_clone"
