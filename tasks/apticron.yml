@@ -1,0 +1,17 @@
+---
+- name: "Create /etc/apticron for when initializing new vms."
+  file:
+    state: "directory"
+    path: "/etc/apticron"
+  tags:
+    - common_utilities
+    - common_utilities_apticron
+
+- name: "Configure apticron"
+  template:
+    src: etc-apticron-apticron.conf.j2
+    dest: "/etc/apticron/apticron.conf"
+    mode: "0644"
+  tags:
+    - common_utilities
+    - common_utilities_apticron

@@ -1,0 +1,81 @@
+- name: "Register if git is installed at /bin/git"
+  stat:
+    path: "/bin/git"
+  register: inprocess_bin_git
+  tags:
+    - "common_utilities"
+    - "common_utilities_git_clone"
+
+- name: "Register if git is installed at /usr/bin/git"
+  stat:
+    path: "/usr/bin/git"
+  register: inprocess_usr_bin_git
+  tags:
+    - "common_utilities"
+    - "common_utilities_git_clone"
+
+- name: "Make sure the parent directories exist."
+  file:
+    state: "directory"
+    path: "{{ item.value.parent_directory }}"
+    owner: "{{ item.value.parent_owner }}"
+    group: "{{ item.value.parent_group }}"
+    mode: "{{ item.value.parent_mode }}"
+  loop: "{{ common_utilities_git_clone_normal_items | default({}) | dict2items }}"
+  tags:
+    - "common_utilities"
+    - "common_utilities_git_clone"
+
+- name: "Clone a git repo."
+  when:
+    - ( inprocess_bin_git.stat.exists or inprocess_usr_bin_git.stat.exists )
+    - item.value.enabled
+    - item.value.delegate_to_local is not defined or item.value.delegate_to_local == False
+  become_user: "{{ item.value.parent_owner }}"
+  git:
+    repo: "{{ item.value.repo }}"
+    dest: "{{ item.value.dest }}"
+    recursive: "{{ item.value.recursive | default('yes') }}"
+    accept_hostkey: "{{ item.value.accept_hostkey | default('no') }}"
+    remote: "{{ item.value.remote | default('origin') }}"
+    version: "{{ item.value.version | default('HEAD') }}"
+  loop: "{{ common_utilities_git_clone_normal_items | default({}) | dict2items }}"
+  tags:
+    - "common_utilities"
+    - "common_utilities_git_clone"
+
+# This tasks gets around issue with Ansible not handling the ssh connection
+# to the git host very well. Or at least my issue with it...
+- name: "Clone a git repo locally."
+  when:
+    - ( inprocess_bin_git.stat.exists or inprocess_usr_bin_git.stat.exists )
+    - item.value.enabled
+    - item.value.delegate_to_local is defined and item.value.delegate_to_local == True
+  become_user: "{{ item.value.parent_owner }}"
+  delegate_to: localhost
+  git:
+    repo: "{{ item.value.repo }}"
+    dest: "{{ item.value.dest }}"
+    recursive: "{{ item.value.recursive | default('yes') }}"
+    accept_hostkey: "{{ item.value.accept_hostkey | default('no') }}"
+    remote: "{{ item.value.remote | default('origin') }}"
+    version: "{{ item.value.version | default('HEAD') }}"
+  loop: "{{ common_utilities_git_clone_normal_items | default({}) | dict2items }}"
+  tags:
+    - "common_utilities"
+    - "common_utilities_git_clone"
+
+- name: "Set any needed $HOME/bin/ links"
+  when:
+    - item.value.enabled or item.value.enabled == "True"
+  file:
+    state: "link"
+    src: "{{ item.value.src }}"
+    dest: "{{ item.value.dest }}"
+    owner: "{{ item.value.owner }}"
+    group: "{{ item.value.group }}"
+    mode: "{{ item.value.mode }}"
+  loop: "{{ common_utilities_git_clone_bin_links | default({}) | dict2items }}"
+  tags:
+    - "common_utilities"
+    - "common_utilities_git_clone"

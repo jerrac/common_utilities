@@ -1,0 +1,26 @@
+- name: "Modify /etc/security/limits.conf"
+  lineinfile:
+    state: "present"
+    line: "* hard core 0"
+    path: "/etc/security/limits.conf"
+  tags:
+  - common_utilities
+  - common_utilities_disable_core_dumps
+
+- name: "Modify /etc/sysctl.conf"
+  lineinfile:
+    state: "present"
+    line: "fs.suid_dumpable = 0"
+    path: "/etc/sysctl.conf"
+  tags:
+  - common_utilities
+  - common_utilities_disable_core_dumps
+
+- name: "Modify /etc/profile"
+  lineinfile:
+    state: "present"
+    line: "ulimit -S -c 0 > /dev/null 2>&1"
+    path: "/etc/profile"
+  tags:
+  - common_utilities
+  - common_utilities_disable_core_dumps

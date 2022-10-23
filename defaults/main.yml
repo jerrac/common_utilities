@@ -3,8 +3,25 @@ common_utilities_docker_networking_enabled: False
 common_utilities_docker_volumes_enabled: False
 common_utilities_docker_enable_enabled: False
 common_utilities_etc_aliases_enabled: False
-common_utilities_file_upload_enabled: False
-common_utilities_append_groups_to_user_enabled: False
-common_utilities_append_groups_to_user_items: {}
 common_utilities_acme_to_haproxy_enabled: False
 common_utilities_acme_to_haproxy_items: {}
+common_utilities_git_clone_enabled: False
+common_utilities_template_etc_hosts_enabled: False
+common_utilities_disable_core_dumps_enabled: False
+common_utilities_enable_core_dumps_enabled: False
+common_utilities_apticron_enabled: False
+common_utilities_apticron:
+  email: "webservices@lanecc.edu"
+  diff_only: "0"
+  listchange_profile: ""
+  all_fqdns: "0"
+  system: "{{ ansible_fqdn }}"
+  ipaddressnum: "1"
+  ipaddresses: "{{ ansible_default_ipv4.interface }}"
+  notify_holds: "1"
+  notify_new: "1"
+  notify_no_updates: "0"
+  custom_subject: ""
+  custom_no_updates_subject: ""
+  custom_from: ""
+  gpg_encrypt: "0"
