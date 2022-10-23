@@ -31,7 +31,6 @@
     - "common_utilities"
     - "common_utilities_timezone"
 
-
 - name: "Include git clone tasks."
   when: common_utilities_git_clone_enabled
   include_tasks: git_clone.yml
