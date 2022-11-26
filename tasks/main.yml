@@ -14,3 +14,4 @@
     - "common_utilities_disable_core_dumps"
     - "common_utilities_enable_core_dumps"
     - "common_utilities_apticron"
+    - "common_utilities_htpasswd"

@@ -71,3 +71,12 @@
   tags:
     - "common_utilities"
     - "common_utilities_apticron"
+
+- name: "Include htpasswd tasks"
+  when:
+    - common_utilities_htpasswd_enabled
+    - common_utilities_htpasswd_users is defined
+  include_tasks: htpasswd.yml
+  tags:
+    - "common_utilities"
+    - "common_utilities_htpasswd"
